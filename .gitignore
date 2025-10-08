@@ -1,0 +1,47 @@
+# ===========================
+# Python
+# ===========================
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.sqlite
+
+# Virtual Environments
+venv/
+env/
+.env
+
+# Flask / Instance
+instance/
+*.log
+
+# ===========================
+# IDE / Editor
+# ===========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# ===========================
+# OS Files
+# ===========================
+.DS_Store
+Thumbs.db
+
+# ===========================
+# Pytest / CI/CD
+# ===========================
+.pytest_cache/
+test-results.xml
+coverage.xml
+
+# ===========================
+# Docker / Build
+# ===========================
+*.tar
+*.img
+*.dockerignore
+docker-compose.override.yml

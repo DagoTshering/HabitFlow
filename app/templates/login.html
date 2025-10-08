@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    <div class="login-container">
+      <div class="text-center mb-4">
+        <i class="fas fa-sign-in-alt fa-3x text-primary mb-3"></i>
+        <h3>Welcome Back</h3>
+        <p class="text-muted">Sign in to your HabitFlow account</p>
+      </div>
+      <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+          {{ form.email.label(class="form-label fw-semibold") }}
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            {{ form.email(class="form-control", placeholder="Enter your email") }}
+          </div>
+        </div>
+        <div class="mb-4">
+          {{ form.password.label(class="form-label fw-semibold") }}
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            {{ form.password(class="form-control", placeholder="Enter your password") }}
+          </div>
+        </div>
+        <button class="btn btn-primary w-100 py-2 fw-semibold">
+          <i class="fas fa-sign-in-alt me-2"></i>Sign In
+        </button>
+      </form>
+      <div class="text-center mt-3">
+        <p class="text-muted">Don't have an account? <a href="{{ url_for('routes.signup') }}" class="text-decoration-none">Sign up</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

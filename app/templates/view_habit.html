@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}{{ habit.name }}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-10 col-lg-8">
+    <div class="card">
+      <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">{{ habit.name }}</h4>
+        <a href="{{ url_for('routes.index') }}" class="btn btn-sm btn-light">
+          <i class="fas fa-arrow-left me-1"></i>Back
+        </a>
+      </div>
+      <div class="card-body p-4">
+        <p class="lead">{{ habit.description }}</p>
+        
+        <div class="row mb-4">
+          <div class="col-md-4 mb-3">
+            <div class="card bg-light">
+              <div class="card-body text-center">
+                <i class="fas fa-sync-alt fa-2x text-primary mb-2"></i>
+                <h5>Frequency</h5>
+                <p class="mb-0">{{ habit.frequency }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card bg-light">
+              <div class="card-body text-center">
+                <i class="fas fa-fire fa-2x text-warning mb-2"></i>
+                <h5>Current Streak</h5>
+                <p class="mb-0 streak-counter">{{ streak }} days</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card bg-light">
+              <div class="card-body text-center">
+                <i class="fas fa-check-circle fa-2x text-success mb-2"></i>
+                <h5>Total Completions</h5>
+                <p class="mb-0">{{ logs|length }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <h5 class="mb-3"><i class="fas fa-history me-2"></i>Completion History</h5>
+        {% if logs %}
+        <div class="completion-history">
+          {% for log in logs %}
+          <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+            <div>
+              <i class="fas fa-check-circle text-success me-2"></i>
+              {{ log.date_completed.strftime("%B %d, %Y") }}
+            </div>
+            <small class="text-muted">{{ log.date_completed.strftime("%A") }}</small>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state py-4">
+          <i class="fas fa-clipboard-list fa-2x mb-3"></i>
+          <p class="text-muted">No completions recorded yet.</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

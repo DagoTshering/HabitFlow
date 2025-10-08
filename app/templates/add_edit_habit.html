@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0"><i class="fas {% if 'Edit' in title %}fa-edit{% else %}fa-plus-circle{% endif %} me-2"></i>{{ title }}</h4>
+      </div>
+      <div class="card-body p-4">
+        <form method="POST">
+          {{ form.hidden_tag() }}
+          <div class="mb-3">
+            {{ form.name.label(class="form-label fw-semibold") }}
+            {{ form.name(class="form-control") }}
+          </div>
+          <div class="mb-3">
+            {{ form.description.label(class="form-label fw-semibold") }}
+            {{ form.description(class="form-control", rows="3") }}
+          </div>
+          <div class="mb-4">
+            {{ form.frequency.label(class="form-label fw-semibold") }}
+            {{ form.frequency(class="form-select") }}
+          </div>
+          <div class="d-flex justify-content-between">
+            <a href="{{ url_for('routes.index') }}" class="btn btn-outline-secondary">
+              <i class="fas fa-arrow-left me-1"></i>Back to Dashboard
+            </a>
+            <button class="btn btn-success px-4">
+              <i class="fas fa-save me-1"></i>{{ form.submit.label.text }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+[file content end]
+
+[file name]: login.html
+[file content begin]
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    <div class="login-container">
+      <div class="text-center mb-4">
+        <i class="fas fa-sign-in-alt fa-3x text-primary mb-3"></i>
+        <h3>Welcome Back</h3>
+        <p class="text-muted">Sign in to your HabitFlow account</p>
+      </div>
+      <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+          {{ form.email.label(class="form-label fw-semibold") }}
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            {{ form.email(class="form-control", placeholder="Enter your email") }}
+          </div>
+        </div>
+        <div class="mb-4">
+          {{ form.password.label(class="form-label fw-semibold") }}
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            {{ form.password(class="form-control", placeholder="Enter your password") }}
+          </div>
+        </div>
+        <button class="btn btn-primary w-100 py-2 fw-semibold">
+          <i class="fas fa-sign-in-alt me-2"></i>Sign In
+        </button>
+      </form>
+      <div class="text-center mt-3">
+        <p class="text-muted">Don't have an account? <a href="{{ url_for('routes.signup') }}" class="text-decoration-none">Sign up</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

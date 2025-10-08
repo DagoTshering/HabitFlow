@@ -5,7 +5,19 @@
 [![GitHub Workflow](https://img.shields.io/github/actions/workflow/status/<your-username>/HabitFlow/ci.yml?branch=main&logo=github)](https://github.com/<your-username>/HabitFlow/actions)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
 
-**HabitFlow** is an engaging and interactive web application that helps users track, manage, and build healthy habits. The goal is to make habit tracking fun, visual, and motivating.
+> **HabitFlow** – Your fun and interactive habit tracker. Track, manage, and build healthy habits every day!  
+
+---
+
+## 📌 Table of Contents
+- [🌟 Features](#-features)
+- [🎨 Demo & Screenshots](#-demo--screenshots)
+- [⚡ Installation](#-installation)
+- [🧪 Running Tests](#-running-tests)
+- [🐳 Docker Instructions](#-docker-instructions)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [💖 Acknowledgements](#-acknowledgements)
 
 ---
 
@@ -22,52 +34,52 @@
 
 ## 🎨 Demo & Screenshots
 
-### GIF Demo
+### 🖼 GIF Demo
 ![HabitFlow Demo](docs/screenshots/demo.gif)
 
-### Dashboard
+### 📊 Dashboard
 ![Dashboard](docs/screenshots/dashboard.png)
 
-### Add Habit
+### ➕ Add Habit
 ![Add Habit](docs/screenshots/add_habit.png)
 
-### Habit List
+### 📋 Habit List
 ![Habit List](docs/screenshots/habit_list.png)
 
 ---
 
 ## ⚡ Installation
 
-### 1. Clone the repository
+### 1️⃣ Clone the repository
 ```bash
 git clone https://github.com/<your-username>/HabitFlow.git
 cd HabitFlow
 
-2. Create a virtual environment
+2️⃣ Create a virtual environment
 
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate     # Windows
 
-3. Install dependencies
+3️⃣ Install dependencies
 
 pip install --upgrade pip
 pip install -r requirements.txt
 
-4. Setup environment variables
+4️⃣ Setup environment variables
 
 Create a .env file in the project root:
 
 SECRET_KEY=your-secret-key
 DATABASE_URL=sqlite:///habitflow.db  # Or your Postgres URL
 
-5. Initialize the database
+5️⃣ Initialize the database
 
 flask db init
 flask db migrate -m "Initial migration"
 flask db upgrade
 
-6. Run the app
+6️⃣ Run the app
 
 python run.py
 
@@ -79,11 +91,11 @@ in your browser.
 pytest --tb=short -v
 
 🐳 Docker Instructions
-Build Docker Image
+🔧 Build Docker Image
 
 docker build -t habitflow:latest .
 
-Run Docker Container
+🚀 Run Docker Container
 
 docker run -p 5000:5000 habitflow:latest
 
@@ -117,13 +129,4 @@ Bootstrap
 
 Font Awesome
 
-    Inspiration from popular habit-tracking apps
-
-    HabitFlow – Track your habits, build your life.
-
-
----
-
-If you want, I can **also make it even more attractive with a clickable Table of Contents, colored section highlights, and emoji accents for each section** so it looks highly professional on GitHub.  
-
-Do you want me to do that too?
+Inspiration from popular habit-tracking apps

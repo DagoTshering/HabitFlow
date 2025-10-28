@@ -35,7 +35,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v6
       with:
-        python-version: 3.12
+        python-version: '3.12'
         cache: 'pip'
 
     - name: Install dependencies
@@ -43,6 +43,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install pytest pytest-flask pytest-github-actions-annotate-failures
+
+    - name: Wait for Postgres
+      run: |
+        for i in {1..30}; do
+          nc -z localhost 5432 && echo "Postgres is up" && break
+          echo "Waiting for Postgres..."
+          sleep 2
+        done
 
     - name: Run tests
       env:
@@ -66,6 +74,24 @@ jobs:
         files: test-results.xml
         check_name: Test Results
 
+  docker-build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          tags: habitflow:ci-${{ github.sha }}
+
   security-scan:
     name: Security Scan
     runs-on: ubuntu-latest
@@ -73,7 +99,7 @@ jobs:
       security-events: write
       contents: read
       actions: read
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -104,17 +130,13 @@ jobs:
       - name: Generate additional reports
         if: always()
         run: |
-          # Generate human-readable summary
           echo "## 🛡️ Security Scan Summary" >> $GITHUB_STEP_SUMMARY
           echo "### Bandit Results:" >> $GITHUB_STEP_SUMMARY
           if [ -f bandit-report.json ]; then
             echo "✅ Bandit scan completed - check artifacts for detailed results" >> $GITHUB_STEP_SUMMARY
-            
-            # Try to show a brief summary from JSON
             if command -v jq > /dev/null 2>&1; then
               ISSUE_COUNT=$(jq '.results | length' bandit-report.json 2>/dev/null || echo "0")
               echo "📊 **Issues found:** $ISSUE_COUNT" >> $GITHUB_STEP_SUMMARY
-              
               if [ "$ISSUE_COUNT" != "0" ] && [ "$ISSUE_COUNT" != "" ]; then
                 echo "" >> $GITHUB_STEP_SUMMARY
                 echo "**Top issues:**" >> $GITHUB_STEP_SUMMARY
@@ -124,7 +146,6 @@ jobs:
           else
             echo "❌ Bandit scan failed - check logs above" >> $GITHUB_STEP_SUMMARY
           fi
-          
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Safety Results:" >> $GITHUB_STEP_SUMMARY
           echo "✅ Safety dependency scan completed" >> $GITHUB_STEP_SUMMARY

@@ -13,12 +13,16 @@ login_manager = LoginManager()
 login_manager.login_view = "routes.login"
 login_manager.login_message_category = "info"
 
-def create_app():
+def create_app(config=None, *args, **kwargs):
     app = Flask(__name__, template_folder="templates", static_folder="static")
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev-secret-key")
     # DATABASE_URL (Postgres) expected in env; fallback to sqlite for local quick test
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", "sqlite:///habitflow.db")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+    # Allow tests or callers to override config
+    if config:
+        app.config.update(config)
 
     db.init_app(app)
     migrate.init_app(app, db)
